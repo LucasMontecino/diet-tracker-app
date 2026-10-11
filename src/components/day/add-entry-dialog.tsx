@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button.tsx'
 import {
@@ -18,6 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select.tsx'
+import { FoodCombobox } from '@/components/day/food-combobox.tsx'
 import { api } from '@/lib/api.ts'
 import { queryKeys } from '@/lib/query-keys.ts'
 import { MEAL_LABELS, MEAL_TYPES, type MealType } from '@shared/schemas.ts'
@@ -43,9 +44,6 @@ export function AddEntryDialog({ date, defaultMeal, open, onOpenChange }: AddEnt
   const [quantity, setQuantity] = useState('1')
   const [kcal, setKcal] = useState('')
   const [proteinG, setProteinG] = useState('')
-
-  const favorites = useMemo(() => foods.filter((f) => f.isFavorite), [foods])
-  const rest = useMemo(() => foods.filter((f) => !f.isFavorite), [foods])
 
   const mutation = useMutation({
     mutationFn: api.createEntry,
@@ -126,31 +124,7 @@ export function AddEntryDialog({ date, defaultMeal, open, onOpenChange }: AddEnt
 
           <div className="space-y-2">
             <Label>Alimento</Label>
-            <Select value={foodId} onValueChange={setFoodId}>
-              <SelectTrigger>
-                <SelectValue placeholder="Elegir alimento" />
-              </SelectTrigger>
-              <SelectContent className="max-h-60">
-                <SelectItem value="manual">Entrada manual</SelectItem>
-                {favorites.length > 0 && (
-                  <>
-                    <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground">
-                      Favoritos
-                    </div>
-                    {favorites.map((f) => (
-                      <SelectItem key={f.id} value={String(f.id)}>
-                        {f.name} · {f.kcal} kcal / {f.servingLabel}
-                      </SelectItem>
-                    ))}
-                  </>
-                )}
-                {rest.map((f) => (
-                  <SelectItem key={f.id} value={String(f.id)}>
-                    {f.name} · {f.kcal} kcal
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <FoodCombobox foods={foods} value={foodId} onChange={setFoodId} />
           </div>
 
           {foodId === 'manual' && (
@@ -205,7 +179,7 @@ export function AddEntryDialog({ date, defaultMeal, open, onOpenChange }: AddEnt
             )}
           </div>
 
-          <DialogFooter className="gap-2 sm:gap-0">
+          <DialogFooter>
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
               Cancelar
             </Button>

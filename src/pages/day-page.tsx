@@ -52,7 +52,7 @@ export function DayPage() {
   const waitingForDay = isLoading && !data
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col">
+    <div className="flex flex-col">
       <DayHeader
         className="sticky top-0 z-10 -mx-4 mb-0 border-b bg-background/95 px-4 py-3 backdrop-blur supports-[backdrop-filter]:bg-background/80"
         date={date}

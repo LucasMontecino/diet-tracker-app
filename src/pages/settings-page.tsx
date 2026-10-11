@@ -39,7 +39,7 @@ export function SettingsPage() {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 pt-4">
       <div>
         <h1 className="text-xl font-semibold">Ajustes</h1>
         <p className="text-sm text-muted-foreground">

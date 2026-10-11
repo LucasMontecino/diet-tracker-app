@@ -45,7 +45,7 @@ export function TrendsPage() {
   }))
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pt-4">
       <div>
         <h1 className="text-xl font-semibold">Tendencias</h1>
         <p className="text-sm text-muted-foreground">Últimos 14 días</p>

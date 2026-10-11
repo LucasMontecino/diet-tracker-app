@@ -28,25 +28,29 @@ export function AppShell() {
 
   return (
     <div className="mx-auto flex h-dvh w-full max-w-lg flex-col">
-      <main className="flex min-h-0 flex-1 flex-col pb-[4.25rem]">
-        <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4 py-4">
-          {boot.isLoading ? (
-            <ContentLoading />
-          ) : boot.isError ? (
-            <div className="flex flex-1 flex-col items-center justify-center gap-2 text-center text-sm">
-              <p className="font-medium">No se pudo conectar con el servidor</p>
-              <p className="text-muted-foreground">Ejecutá <code className="text-xs">npm run dev</code> para levantar la API.</p>
-              <button
-                type="button"
-                className="mt-2 text-primary underline"
-                onClick={() => boot.refetch()}
-              >
-                Reintentar
-              </button>
-            </div>
-          ) : (
-            <Outlet />
-          )}
+      <main className="min-h-0 flex-1">
+        <div className="h-full min-h-0 overflow-y-auto overscroll-y-contain">
+          <div className="px-4 pb-[calc(4.25rem+1.5rem)]">
+            {boot.isLoading ? (
+              <ContentLoading />
+            ) : boot.isError ? (
+              <div className="flex min-h-[50vh] flex-col items-center justify-center gap-2 px-2 pt-4 text-center text-sm">
+                <p className="font-medium">No se pudo conectar con el servidor</p>
+                <p className="text-muted-foreground">
+                  Ejecutá <code className="text-xs">npm run dev</code> para levantar la API.
+                </p>
+                <button
+                  type="button"
+                  className="mt-2 text-primary underline"
+                  onClick={() => boot.refetch()}
+                >
+                  Reintentar
+                </button>
+              </div>
+            ) : (
+              <Outlet />
+            )}
+          </div>
         </div>
       </main>
 
