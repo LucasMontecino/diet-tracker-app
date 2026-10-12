@@ -30,7 +30,7 @@ export function AppShell() {
     <div className="mx-auto flex h-dvh w-full max-w-lg flex-col">
       <main className="min-h-0 flex-1">
         <div className="h-full min-h-0 overflow-y-auto overscroll-y-contain">
-          <div className="px-4 pb-[calc(4.25rem+1.5rem)]">
+          <div className="flex min-h-full flex-col px-4 pb-[calc(4.25rem+1.5rem)]">
             {boot.isLoading ? (
               <ContentLoading />
             ) : boot.isError ? (
